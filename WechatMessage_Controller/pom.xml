@@ -12,6 +12,11 @@
     <artifactId>WechatMessage_Controller</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.cjr</groupId>
+            <artifactId>WechatMessage_Service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!--servlet依赖-->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -22,12 +27,19 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.1.2.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>5.1.2.RELEASE</version>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.1</version>
+            <classifier>jdk15</classifier>
         </dependency>
     </dependencies>
 

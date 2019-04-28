@@ -27,13 +27,13 @@
         <!--spring依赖-->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-bean</artifactId>
-            <version>5.1.2.RELEASE</version>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>5.1.2.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <!--spring与mybatis的整合-->
         <dependency>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.1.2.RELEASE</version>
+            <version>${spring.version}</version>
             <scope>compile</scope>
         </dependency>
 
