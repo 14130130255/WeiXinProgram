@@ -27,19 +27,19 @@
     </update>
 
     <update id="updatePostLikeNum" parameterType="String">
-        UPDATE blinddatepost SET postLikeNum=#{postLikeNum}+1 WHERE postId=#{postId}
+        UPDATE blinddatepost SET postLikeNum=postLikeNum+1 WHERE postId=#{postId}
     </update>
 
     <update id="updatePostCommentNum" parameterType="String">
-        UPDATE blinddatepost SET postCommentNum=#{postCommentNum}+1 WHERE postId=#{postId}
+        UPDATE blinddatepost SET postCommentNum=postCommentNum+1 WHERE postId=#{postId}
     </update>
 
     <update id="updateLookPeopleNum" parameterType="String">
-        UPDATE blinddatepost SET lookPeopleNum=#{lookPeopleNum}+1 WHERE postId=#{postId}
+        UPDATE blinddatepost SET lookPeopleNum=lookPeopleNum+1 WHERE postId=#{postId}
     </update>
 
-    <update id="updateIsAnonymous" parameterType="String">
-        UPDATE blinddatepost SET  isAnonymous=#{isAnonymous} WHERE postId=#{postId}
+    <update id="updateIsAnonymous">
+        UPDATE blinddatepost SET  isAnonymous=#{1} WHERE postId=#{0}
     </update>
 
     <delete id="delete" parameterType="String">

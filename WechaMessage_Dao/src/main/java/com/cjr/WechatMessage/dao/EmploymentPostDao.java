@@ -49,7 +49,7 @@ public interface EmploymentPostDao {
      * 更新帖子是否匿名
      * @param postId
      */
-    public void updateIsAnonymous(String postId);
+    public void updateIsAnonymous(String postId, int isAnonymous);
 
     /**
      * 根据帖子id删除帖子
