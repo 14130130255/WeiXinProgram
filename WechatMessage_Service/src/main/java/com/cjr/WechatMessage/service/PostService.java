@@ -1,6 +1,7 @@
 package com.cjr.WechatMessage.service;
 
 import com.cjr.WechatMessage.entity.Post;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @Date:2019/4/27
  * @Time:16:49
  */
+
 public interface PostService {
     /**
      * 根据帖子id查找帖子

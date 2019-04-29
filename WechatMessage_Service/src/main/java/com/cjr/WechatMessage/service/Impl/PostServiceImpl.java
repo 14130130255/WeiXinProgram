@@ -7,7 +7,7 @@ import com.cjr.WechatMessage.entity.Post;
 import com.cjr.WechatMessage.entity.User;
 import com.cjr.WechatMessage.service.PostService;
 
-import javafx.geometry.Pos;
+import com.cjr.WechatMessage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +19,20 @@ import java.util.List;
  * @Date:2019/4/27
  * @Time:16:53
  */
-@Service("postServiceImpl")
+@Service("postService")
 public class PostServiceImpl implements PostService {
 
     @Autowired
     private BlinddatePostDao blinddatePostDao;
+
     @Autowired
     private EmploymentPostDao employmentPostDao;
+
     @Autowired
     private TransactionPostDao transactionPostDao;
+
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     private int postNumOfPage = 5;
 

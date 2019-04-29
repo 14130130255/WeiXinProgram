@@ -1,10 +1,12 @@
 package com.cjr.WechatMessage.service;
 
 import com.cjr.WechatMessage.entity.User;
+import org.springframework.stereotype.Service;
 
 /**
  * 用户的业务层接口
  */
+
 public interface UserService {
     /**
      * 添加用户

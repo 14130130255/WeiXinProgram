@@ -1,8 +1,10 @@
 package com.cjr.WechatMessage.controller;
 
 import com.cjr.WechatMessage.entity.Post;
+
 import com.cjr.WechatMessage.service.Impl.PostServiceImpl;
 import com.cjr.WechatMessage.service.Impl.UserServiceImpl;
+import com.cjr.WechatMessage.service.PostService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +28,8 @@ import java.util.Map;
 public class ShowController {
 
     @Autowired
-    PostServiceImpl postService;
+    private PostService postService;
+
     @ResponseBody
     @RequestMapping("/showLikePost")
     public Map<String,Object> doShowLikePost(Model model,

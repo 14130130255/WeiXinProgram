@@ -22,6 +22,7 @@ public class UserController {
                                       @RequestParam(value="encrypteData",required = false)String encrypteData,
                                       @RequestParam(value="iv",required = false)String iv)
     {
+        System.out.println("test");
         Map<String,Object> map = new HashMap<String, Object>();
         System.out.println("用户非敏感信息"+rawData);
         System.out.println("签名"+signature);
