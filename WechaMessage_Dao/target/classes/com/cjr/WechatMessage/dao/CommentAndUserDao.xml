@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjr.WechatMessage.dao.CommentAndUserDao">
+
+    <!--定义映射结果集-->
+    <resultMap id="commentAndUser" type="CommentAndUser">
+        <result property="postId" column="postId" javaType="String"/>
+        <result property="commentUserId" column="commentUserId" javaType="String"/>
+        <result property="toCommentUserId" column="toCommentUserId" javaType="String"/>
+        <result property="commentId" column="commentId" javaType="int"/>
+        <result property="commentContent" column="commentContent" javaType="String"/>
+        <result property="postType" column="postType" javaType="int"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="CommentAndUser">
+        insert into commentanduser values(#{postId},#{commentUserId},#{toCommentUserId},#{commentId},#{commentContent},#{postType})
+    </insert>
+
+    <update id="update" parameterType="CommentAndUser">
+        update commentanduser set postId=#{postId},commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentId=#{commentId},commentContent=#{commentContent},postType=#{postType}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from commentanduser where commentId=#{commentId}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultMap="commentAndUser">
+        select * from commentanduser where commentId=#{commentId}
+    </select>
+
+    <select id="selectByPostId" parameterType="String" resultMap="commentAndUser">
+        select * from commentanduser where postId=#{postId}
+    </select>
+
+</mapper>

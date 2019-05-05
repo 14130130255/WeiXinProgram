@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjr.WechatMessage.dao.BlinddatePostDao">
+
+    <!--定义映射结果集-->
+    <resultMap id="blinddatePost" type="BlinddatePost">
+        <result property="postId" column="postId" javaType="String"/>
+        <result property="postType" column="postType" javaType="int"/>
+        <result property="userId" column="userId" javaType="String"/>
+        <result property="postContent" column="postContent" javaType="String"/>
+        <result property="postPhotos" column="postPhotos" javaType="String"/>
+        <result property="postLikeNum" column="postLikeNum" javaType="int"/>
+        <result property="postCommentNum" column="postCommentNum" javaType="int"/>
+        <result property="lookPeopleNum" column="lookPeopleNum" javaType="int"/>
+        <result property="postCreateTime" column="postCreateTime" javaType="java.util.Date"/>
+        <result property="isAnonymous" column="isAnonymous" javaType="boolean"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="BlinddatePost">
+        insert into blinddatepost values(#{postId},#{postType},#{userId},#{postContent},#{postPhotos},#{postLikeNum},#{postCommentNum},#{lookPeopleNum},#{postCreateTime},
+        #{isAnonymous})
+    </insert>
+
+    <update id="update" parameterType="BlinddatePost">
+        update blinddatepost set postId=#{postId},postType=#{postType},userId=#{userId},postContent=#{postContent},postPhotos=#{postPhotos},postLikeNum=#{postLikeNum},
+        postCommentNum=#{postCommentNum},lookPeopleNum=#{lookPeopleNum},postCreateTime=#{postCreateTime},isAnonymous=#{isAnonymous}
+    </update>
+
+    <update id="updatePostLikeNum" parameterType="String">
+        UPDATE blinddatepost SET postLikeNum=postLikeNum+1 WHERE postId=#{postId}
+    </update>
+
+    <update id="updatePostCommentNum" parameterType="String">
+        UPDATE blinddatepost SET postCommentNum=postCommentNum+1 WHERE postId=#{postId}
+    </update>
+
+    <update id="updateLookPeopleNum" parameterType="String">
+        UPDATE blinddatepost SET lookPeopleNum=lookPeopleNum+1 WHERE postId=#{postId}
+    </update>
+
+    <update id="updateIsAnonymous">
+        UPDATE blinddatepost SET  isAnonymous=#{1} WHERE postId=#{0}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from blinddatepost where postId=#{postId}
+    </delete>
+
+    <select id="selectByPostId" parameterType="String" resultMap="blinddatePost">
+        select * from blinddatepost where postId=#{postId}
+    </select>
+
+    <select id="selectByUserId" parameterType="String" resultMap="blinddatePost">
+        select * from blinddatepost where userId=#{userId}
+    </select>
+
+    <select id="selectAll" parameterType="String" resultMap="blinddatePost">
+        select * from blinddatepost
+    </select>
+
+</mapper>
