@@ -15,6 +15,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:2.1" level="project" />
     <orderEntry type="module" module-name="WechaMessage_Dao" />
     <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.1" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.7.0" level="project" />
