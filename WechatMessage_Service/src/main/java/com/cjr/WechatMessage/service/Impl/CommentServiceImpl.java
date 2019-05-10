@@ -15,7 +15,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentAndUserDao commentAndUserDao;
 
     public boolean comment(String postId, String userId, String toUserId, String contain) {
-        List<CommentAndUser> commentList =  commentAndUserDao.selectByPostId(postId);
+
 
         return false;
     }

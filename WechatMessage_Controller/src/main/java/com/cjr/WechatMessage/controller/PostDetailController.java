@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -19,17 +20,23 @@ public class PostDetailController {
     private PostDetailServiceImpl postDetailService;
 
     @ResponseBody
-    @RequestMapping("/addpost")
+    @RequestMapping("/postDetail")
     public Map<String,String> doGetPostDetail(Model model,
-                                        @RequestParam(value="openid",required = true)String userId,
-                                        @RequestParam(value = "postid",required = true)String postId){
+                                        @RequestParam(value="postid",required = true)String postId,
+                                        @RequestParam(value = "posttype",required = true)int postType){
 
-        Post post = new Post();
-        //未定
+        String returnobj;
+        returnobj = postDetailService.getPostDetail(postId,postType);
+        Map<String,String> map = new HashMap<>();
+        if(returnobj !=null){
+            map.put("postDetail",returnobj);
+        }
+        else {
+            map.put("postDetail","false");
+        }
 
-        postDetailService.getPostDetail(post);
 
-        return null;
+        return map;
 
     }
 
