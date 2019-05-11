@@ -5,5 +5,5 @@ import com.cjr.WechatMessage.entity.User;
 
 public interface PostDetailService {
 
-    public String getPostDetail(Post post);
+    public String getPostDetail(String postId,int postType);
 }

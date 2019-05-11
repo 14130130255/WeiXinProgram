@@ -13,7 +13,7 @@
     </resultMap>
 
     <insert id="insert" parameterType="CommentAndUser">
-        insert into commentanduser values(#{postId},#{commentUserId},#{toCommentUserId},#{commentId},#{commentContent},#{postType})
+        insert into commentanduser values(#{postId},#{commentUserId},#{toCommentUserId},#{commentContent},#{postType})
     </insert>
 
     <update id="update" parameterType="CommentAndUser">
