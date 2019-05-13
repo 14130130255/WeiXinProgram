@@ -2,6 +2,7 @@ package com.cjr.WechatMessage.controller;
 
 import com.cjr.WechatMessage.entity.CommentAndUser;
 import com.cjr.WechatMessage.service.Impl.CommentServiceImpl;
+import com.cjr.WechatMessage.service.Impl.PostCommentNumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ public class CommentController {
 
     @Autowired
     private CommentServiceImpl commentService;
+    @Autowired
+    private PostCommentNumServiceImpl postCommentNumService;
     @ResponseBody
     @RequestMapping("/comment")
     public Map<String,String> comment(Model model,
@@ -33,13 +36,22 @@ public class CommentController {
         commentAndUser.setToCommentUserId(toCommentUserId);
         commentAndUser.setCommentContent(CommentContent);
         Map<String,String> map = new HashMap<>();
-        if(commentService.comment(commentAndUser)){
-            map.put("comment","success");
+        try {
+            if(commentService.comment(commentAndUser)){
+                map.put("comment","success");
+                postCommentNumService.addComment(postId,postType);
 
-        }else {
+            }else {
+                map.put("comment","failed");
+            }
+            return map;
+        }catch (Exception e){
+            e.printStackTrace();
             map.put("comment","failed");
+            return map;
         }
-        return map;
+
+
 
     }
 }
