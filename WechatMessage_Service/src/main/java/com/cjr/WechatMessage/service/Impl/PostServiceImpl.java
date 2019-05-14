@@ -115,7 +115,6 @@ public class PostServiceImpl implements PostService {
                 break;
         }
         if (index * postNumOfPage >= posts.size()) {
-            System.out.println("out of postNumPage");
             return null;
         }
         return posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size()-1 : (index+1)*postNumOfPage);
