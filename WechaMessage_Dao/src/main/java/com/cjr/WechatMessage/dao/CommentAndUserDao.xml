@@ -13,11 +13,11 @@
     </resultMap>
 
     <insert id="insert" parameterType="CommentAndUser">
-        insert into commentanduser values(#{postId},#{commentUserId},#{toCommentUserId},#{commentId},#{commentContent},#{postType})
+        insert into commentanduser values(#{postId},#{commentUserId},#{toCommentUserId},#{commentContent},#{postType})
     </insert>
 
     <update id="update" parameterType="CommentAndUser">
-        update commentanduser set postId=#{postId},commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentId=#{commentId},commentContent=#{commentContent},postType=#{postType}
+        update commentanduser set commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentId=#{commentId},commentContent=#{commentContent},postType=#{postType} WHERE postId=#{postId}
     </update>
 
     <delete id="delete" parameterType="String">

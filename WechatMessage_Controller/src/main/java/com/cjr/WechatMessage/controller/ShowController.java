@@ -2,6 +2,7 @@ package com.cjr.WechatMessage.controller;
 
 import com.cjr.WechatMessage.entity.Post;
 
+
 import com.cjr.WechatMessage.entity.User;
 import com.cjr.WechatMessage.global.DateUtil;
 import com.cjr.WechatMessage.service.Impl.PostServiceImpl;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +51,11 @@ public class ShowController {
 
     @ResponseBody
     @RequestMapping("/showLikePost")
+    /**
+     * 获取感兴趣模块的帖子
+     * opendId为用户id
+     * index为页面展示的第几页
+     */
     public Map<String,Object> doShowLikePost(Model model,
                                       @RequestParam(value="openId",required = false)String openId,
                                       @RequestParam(value = "index",required = false)int index) {
@@ -62,6 +67,10 @@ public class ShowController {
 
     @ResponseBody
     @RequestMapping("/showBlindDatePost")
+    /**
+     * 获取相亲模块的帖子
+     * index：页面展示的第几页
+     */
     public Map<String,Object> doShowBlindDatePost(Model model,
                                       @RequestParam(value="index",required = false)int index) {
         System.out.println(index);
@@ -78,6 +87,10 @@ public class ShowController {
 
     @ResponseBody
     @RequestMapping("/showEmploymentPost")
+    /**
+     * 获取招聘模块的帖子
+     * index：页面展示的第几页
+     */
     public Map<String,Object> doShowEmploymentPost(Model model,
                                                   @RequestParam(value="index",required = false)int index) {
         System.out.println(index);
@@ -89,6 +102,10 @@ public class ShowController {
 
     @ResponseBody
     @RequestMapping("/showTransactionPost")
+    /**
+     * 获取交易模块的帖子
+     * index：页面展示的第几页
+     */
     public Map<String,Object> doShowTransactionPost(Model model,
                                                   @RequestParam(value="index",required = false)int index) {
         System.out.println(index);
@@ -97,7 +114,13 @@ public class ShowController {
         listToMap(posts, map,"transaction");
         return map;
     }
-
+  
+  
+    /**
+     * 将list中的帖子对象属性转换存储在map中
+     * @param posts
+     * @param map
+     */
     public void listToMap(List<Post> posts, Map<String, Object> map,String type) {
         JSONObject[] jsonObjects = new JSONObject[5];
         int index = 0;

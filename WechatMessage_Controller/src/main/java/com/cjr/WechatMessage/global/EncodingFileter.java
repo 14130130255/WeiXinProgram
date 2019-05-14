@@ -15,14 +15,14 @@ public class EncodingFileter implements Filter {
 
     private String encoding = "utf-8";
 
-
+    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         if(filterConfig.getInitParameter("encoding")!=null){
             encoding = filterConfig.getInitParameter("encoding");
         }
     }
 
-
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         HttpServletResponse response = (HttpServletResponse)servletResponse;
@@ -31,7 +31,7 @@ public class EncodingFileter implements Filter {
         filterChain.doFilter(request,response);
     }
 
-
+    @Override
     public void destroy() {
 
     }
