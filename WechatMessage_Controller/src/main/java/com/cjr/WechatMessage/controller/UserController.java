@@ -148,6 +148,28 @@ public class UserController {
                                        @RequestParam(value="studentNumber",required = false)String studentNumber)
     {
         Map<String,String> map  = new HashMap<String, String>();
+        System.out.println("openid:"+openid);
+        System.out.println("school:"+school);
+        System.out.println("collage:"+collage);
+        System.out.println("degree:"+degree);
+        System.out.println("studentNumber:"+studentNumber);
+        //通过openid查找到对应的用户
+        User user = userService.getByOpenId(openid);
+        if(user == null){
+            System.out.println("不存在用户");
+        }
+        else{
+            System.out.println("更新学生验证信息成功");
+
+            user.setCollege(collage);
+            user.setDegree(degree);
+            user.setSchool(school);
+            user.setStudentNumber(studentNumber);
+
+            userService.edit(user);
+        }
+
+        map.put("result","0");
         return map;
     }
 
@@ -165,6 +187,25 @@ public class UserController {
 
     {
         Map<String,String> map = new HashMap<String,String>();
+        //验证前台传过来的数据是否正确
+        System.out.println("openid:"+openid);
+        System.out.println("choiceMode:"+choiceMode);
+
+        //通过openid查找到对应的用户
+        User user = userService.getByOpenId(openid);
+        if(user == null){
+            System.out.println("不存在用户");
+        }
+        else{
+            System.out.println("更新用户choiceMode成功");
+
+            user.setChoiceMode(Integer.parseInt(choiceMode));
+
+            userService.edit(user);
+        }
+
+        map.put("result","0");
+
         return map;
     }
 
