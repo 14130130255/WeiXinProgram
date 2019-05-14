@@ -34,12 +34,23 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private UserService userService;
 
+    //每页显示的帖子数
     private int postNumOfPage = 5;
 
+    /**
+     * 根据postId查询帖子（未实现）
+     * @param postId
+     * @return
+     */
     public Post selectByPostId(String postId) {
         return null;
     }
 
+    /**
+     * 根据用户Id查询帖子（未实现）
+     * @param userId
+     * @return
+     */
     public List<Post> selectByUserId(String userId) {
         return null;
     }
@@ -54,6 +65,13 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = null;
         User user = userService.getByOpenId(openId);
         int model = user.getChoiceMode();
+        /**
+         * 0 无感兴趣模块
+         * 1 感兴趣相亲
+         * 2 感兴趣招聘
+         * 3 感兴趣二手交易
+         * 数字组合为感兴趣多个模块
+         */
         switch (model) {
             case 0:
                 posts = null;
@@ -102,6 +120,11 @@ public class PostServiceImpl implements PostService {
     public List<Post> selectAll(int type, int index) {
         List<Post> posts = null;
         switch (type){
+            /**
+             * 1 表示相亲贴
+             * 2 表示招聘贴
+             * 3 表示二手交易贴
+             */
             case 1:
                 posts = blinddatePostDao.selectAll();
                 break;

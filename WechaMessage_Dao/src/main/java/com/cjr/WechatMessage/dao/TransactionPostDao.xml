@@ -22,8 +22,8 @@
     </insert>
 
     <update id="update" parameterType="TransactionPost">
-        update transactionpost set postId=#{postId},postType=#{postType},userId=#{userId},postContent=#{postContent},postPhotos=#{postPhotos},postLikeNum=#{postLikeNum},
-        postCommentNum=#{postCommentNum},lookPeopleNum=#{lookPeopleNum},postCreateTime=#{postCreateTime},isAnonymous=#{isAnonymous}
+        update transactionpost set postType=#{postType},userId=#{userId},postContent=#{postContent},postPhotos=#{postPhotos},postLikeNum=#{postLikeNum},
+        postCommentNum=#{postCommentNum},lookPeopleNum=#{lookPeopleNum},postCreateTime=#{postCreateTime},isAnonymous=#{isAnonymous} WHERE postId=#{postId}
     </update>
 
     <update id="updatePostLikeNum" parameterType="String">

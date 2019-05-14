@@ -6,5 +6,5 @@ package com.cjr.WechatMessage.entity;
  * @Date:2019/4/27
  * @Time:14:16
  */
-public class TransactionPost extends Post{
+public class TransactionPost extends Post {
 }
