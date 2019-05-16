@@ -14,9 +14,17 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentAndUserDao commentAndUserDao;
 
-    public boolean comment(String postId, String userId, String toUserId, String contain) {
-        List<CommentAndUser> commentList =  commentAndUserDao.selectByPostId(postId);
+    public boolean comment(CommentAndUser commentAndUser) {
 
-        return false;
+
+        try{
+            commentAndUserDao.insert(commentAndUser);
+        }catch (Exception e){
+            System.out.println("comment insert error");
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }

@@ -33,11 +33,11 @@ public class PostDetailServiceImpl implements PostDetailService {
 
     @Autowired
     private CommentAndUserDao commentAndUserDao;
-    public String getPostDetail(Post post) {
+    public String getPostDetail(String postId,int postType) {
 
         String postJsonString;
-        int postType = post.getPostType();
-        String postId = post.getPostId();
+        Post post;
+
         if(postType == Common.Blinddate.hashCode()){
             post = blinddatePostDao.selectByPostId(postId);
             postJsonString = Utils.objectToJson(post);
