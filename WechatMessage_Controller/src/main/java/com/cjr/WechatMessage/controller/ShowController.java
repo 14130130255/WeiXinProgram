@@ -25,9 +25,12 @@ import java.util.Map;
 @Controller("showController")
 public class ShowController {
 
+
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private PostAndPictureController postAndPictureController;
     @ResponseBody
     @RequestMapping("/showLikePost")
     /**
@@ -44,6 +47,7 @@ public class ShowController {
         return map;
     }
 
+    @ResponseBody
     @RequestMapping("/showBlindDatePost")
     /**
      * 获取相亲模块的帖子
@@ -57,6 +61,7 @@ public class ShowController {
         return map;
     }
 
+    @ResponseBody
     @RequestMapping("/showEmploymentPost")
     /**
      * 获取招聘模块的帖子
@@ -70,6 +75,7 @@ public class ShowController {
         return map;
     }
 
+    @ResponseBody
     @RequestMapping("/showTransactionPost")
     /**
      * 获取交易模块的帖子
@@ -91,12 +97,20 @@ public class ShowController {
     public void listToMap(List<Post> posts, Map<String, Object> map) {
         int index = 0;
         for (Post post : posts){
+            String photos[] = new String[6];
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("postId", post.getPostId());
             jsonObject.put("postType", post.getPostType());
             jsonObject.put("userId", post.getUserId());
             jsonObject.put("postContent", post.getPostContent());
-            jsonObject.put("postPhotos", post.getPostPhotos());
+            if (Integer.parseInt(post.getPostPhotos()) == 1) {
+                photos = postAndPictureController.selectByPostId(post.getPostId());
+            }else {
+                for (int i=0; i < 6; i++) {
+                    photos[i] = null;
+                }
+            }
+            jsonObject.put("postPhotos", photos);
             jsonObject.put("postLikeNum", post.getPostLikeNum());
             jsonObject.put("postCommentNum", post.getPostCommentNum());
             jsonObject.put("lookPeopleNum", post.getLookPeopleNum());

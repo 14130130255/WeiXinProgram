@@ -4,6 +4,7 @@ import com.cjr.WechatMessage.entity.*;
 import com.cjr.WechatMessage.service.Impl.BlinddatePostServiceImpl;
 import com.cjr.WechatMessage.service.Impl.EmploymentPostServiceImpl;
 import com.cjr.WechatMessage.service.Impl.TransactionPostServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,8 @@ public class AddPostController {
     private EmploymentPostServiceImpl employmentPostService;
     @Resource(name = "transactionPostService")
     private TransactionPostServiceImpl transactionPostService;
-
+    @Autowired
+    private PostAndPictureController postAndPictureController;
     @ResponseBody
     @RequestMapping("/addpost")
     public Map<String,String> doAddPost(Model model,
@@ -32,7 +34,7 @@ public class AddPostController {
                                         @RequestParam(value = "mode",required = true)String postType,
                                         @RequestParam(value = "content",required = true)String postContent,
                                         @RequestParam(value = "is_anonymous",required = false)String isAnonymous,
-                                        @RequestParam(value = "photos",required = false)String postPhotos){
+                                        @RequestParam(value = "photos",required = false)String[] postPhotos){
 
         Post post;
         Map<String,String> map = new HashMap<String, String>();
@@ -61,7 +63,7 @@ public class AddPostController {
         post.setPostId(userId+returnStr);
         post.setPostContent(postContent);
         if(postPhotos!=null){
-            post.setPostPhotos(postPhotos);
+            postAndPictureController.doAddPicture(userId+returnStr, postPhotos);
         }
         else {
             post.setPostPhotos(null);
