@@ -2,6 +2,7 @@ package com.cjr.WechatMessage.service.Impl;
 
 import com.cjr.WechatMessage.dao.BlinddatePostDao;
 import com.cjr.WechatMessage.dao.EmploymentPostDao;
+import com.cjr.WechatMessage.dao.NewsPostDao;
 import com.cjr.WechatMessage.dao.TransactionPostDao;
 import com.cjr.WechatMessage.entity.Post;
 import com.cjr.WechatMessage.entity.User;
@@ -33,6 +34,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private NewsPostDao newsPostDao;
 
     //每页显示的帖子数
     private int postNumOfPage = 5;
@@ -134,12 +138,16 @@ public class PostServiceImpl implements PostService {
             case 3:
                 posts = transactionPostDao.selectAll();
                 break;
+            case 4:
+                posts = newsPostDao.selectAll();
             default:
                 break;
         }
+        System.out.println(posts.size());
+
         if (index * postNumOfPage >= posts.size()) {
             return null;
         }
-        return posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size()-1 : (index+1)*postNumOfPage);
+        return posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size() : (index+1)*postNumOfPage);
     }
 }

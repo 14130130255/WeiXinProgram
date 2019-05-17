@@ -43,9 +43,25 @@ public class ShowController {
         List<Post> bindDatePosts = postService.selectAll(1,index);
         List<Post> employmentPosts = postService.selectAll(2,index);
         List<Post> transactionPosts = postService.selectAll(3,index);
-        listToMap(bindDatePosts,map,"bindDate");
-        listToMap(employmentPosts,map,"employment");
-        listToMap(transactionPosts,map,"transaction");
+        if(bindDatePosts==null){
+            map.put("databindDate",null);
+        }
+        else{
+            System.out.println("111");
+            listToMap(bindDatePosts,map,"bindDate");
+        }
+        if(employmentPosts==null){
+            map.put("dataemployment",null);
+        }
+        else{
+            listToMap(employmentPosts,map,"employment");
+        }
+        if(transactionPosts==null){
+            map.put("datatransaction",null);
+        }
+        else{
+            listToMap(transactionPosts,map,"transaction");
+        }
         return map;
     }
 
@@ -76,9 +92,8 @@ public class ShowController {
         System.out.println(index);
         List<Post> posts = postService.selectAll(1, index);
         Map<String,Object> map = new HashMap<String, Object>();
-        if(posts == null){
-            System.out.println("post is null");
-            map.put("result",null);
+        if(posts==null){
+            map.put("databindDate",null);
         }else{
             listToMap(posts, map,"bindDate");
         }
@@ -96,7 +111,11 @@ public class ShowController {
         System.out.println(index);
         List<Post> posts = postService.selectAll(2, index);
         Map<String,Object> map = new HashMap<String, Object>();
-        listToMap(posts, map,"employment");
+        if(posts==null){
+            map.put("dataemployment",null);
+        }else{
+            listToMap(posts, map,"employment");
+        }
         return map;
     }
 
@@ -111,7 +130,26 @@ public class ShowController {
         System.out.println(index);
         List<Post> posts = postService.selectAll(3, index);
         Map<String,Object> map = new HashMap<String, Object>();
-        listToMap(posts, map,"transaction");
+        if(posts==null){
+            map.put("datatransaction",null);
+        }else{
+            listToMap(posts, map,"transaction");
+        }
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("/showNewsPost")
+    public Map<String,Object> doShowNewsPost(Model model,
+                                             @RequestParam(value="index",required = false)int index){
+        System.out.println(index);
+        List<Post> posts = postService.selectAll(4,index);
+        Map<String,Object> map = new HashMap<>();
+        if(posts==null){
+            map.put("datanews",null);
+        }else{
+            listToMap(posts,map,"news");
+        }
         return map;
     }
   
@@ -124,11 +162,17 @@ public class ShowController {
     public void listToMap(List<Post> posts, Map<String, Object> map,String type) {
         JSONObject[] jsonObjects = new JSONObject[5];
         int index = 0;
+        System.out.println(posts.size());
         for (Post post : posts){
             JSONObject jsonObject = new JSONObject();
-            User user = userService.getByOpenId(post.getUserId());
+            if(post.isAnonymous()==true){
+                jsonObject.put("nickName","匿名用户");
+            }else{
+                User user = userService.getByOpenId(post.getUserId());
+                jsonObject.put("nickName",user.getNickName());
+            }
+
             String time = DateUtil.dateTimeToString(post.getPostCreateTime());
-            jsonObject.put("nickName",user.getNickName());
             jsonObject.put("postId", post.getPostId());
             jsonObject.put("postType", post.getPostType());
             jsonObject.put("userId", post.getUserId());

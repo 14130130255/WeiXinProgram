@@ -54,7 +54,7 @@
         select * from blinddatepost where userId=#{userId}
     </select>
 
-    <select id="selectAll" parameterType="String" resultMap="blinddatePost">
+    <select id="selectAll" resultMap="blinddatePost">
         select * from blinddatepost
     </select>
 

@@ -3,6 +3,7 @@ package com.cjr.WechatMessage.controller;
 import com.cjr.WechatMessage.entity.Post;
 import com.cjr.WechatMessage.entity.User;
 import com.cjr.WechatMessage.service.Impl.PostDetailServiceImpl;
+import com.cjr.WechatMessage.service.PostDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class PostDetailController {
 
     @Autowired
-    private PostDetailServiceImpl postDetailService;
+    private PostDetailService postDetailService;
 
     @ResponseBody
     @RequestMapping("/postDetail")
