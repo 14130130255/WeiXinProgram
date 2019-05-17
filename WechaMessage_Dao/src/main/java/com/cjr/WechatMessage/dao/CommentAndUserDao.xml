@@ -17,11 +17,11 @@
     </insert>
 
     <update id="update" parameterType="CommentAndUser">
-        update commentanduser set commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentId=#{commentId},commentContent=#{commentContent},postType=#{postType} WHERE postId=#{postId}
+        update commentanduser set postId=#{postId}, commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentContent=#{commentContent},postType=#{postType} WHERE commentId=#{commentId}
     </update>
 
     <delete id="delete" parameterType="String">
-        delete from commentanduser where commentId=#{commentId}
+        DELETE from commentanduser WHERE commentId=#{commentId}
     </delete>
 
     <select id="selectById" parameterType="String" resultMap="commentAndUser">

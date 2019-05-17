@@ -5,11 +5,8 @@ import com.cjr.WechatMessage.entity.Post;
 
 import com.cjr.WechatMessage.entity.User;
 import com.cjr.WechatMessage.global.DateUtil;
-import com.cjr.WechatMessage.service.Impl.PostServiceImpl;
-import com.cjr.WechatMessage.service.Impl.UserServiceImpl;
 import com.cjr.WechatMessage.service.PostService;
 import com.cjr.WechatMessage.service.UserService;
-import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +32,8 @@ public class ShowController {
     private PostService postService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostAndPictureController postAndPictureController;
 
     @ResponseBody
     @RequestMapping("/getInitData")
@@ -164,6 +163,7 @@ public class ShowController {
         int index = 0;
         System.out.println(posts.size());
         for (Post post : posts){
+            String photos[] = new String[6];
             JSONObject jsonObject = new JSONObject();
             if(post.isAnonymous()==true){
                 jsonObject.put("nickName","匿名用户");
@@ -177,7 +177,14 @@ public class ShowController {
             jsonObject.put("postType", post.getPostType());
             jsonObject.put("userId", post.getUserId());
             jsonObject.put("postContent", post.getPostContent());
-//            jsonObject.put("postPhotos", post.getPostPhotos());
+            if (Integer.parseInt(post.getPostPhotos()) == 1) {
+                photos = postAndPictureController.selectByPostId(post.getPostId());
+            }else {
+                for (int i=0; i < 6; i++) {
+                    photos[i] = null;
+                }
+            }
+            jsonObject.put("postPhotos", photos);
             jsonObject.put("postLikeNum", post.getPostLikeNum());
             jsonObject.put("postCommentNum", post.getPostCommentNum());
             jsonObject.put("lookPeopleNum", post.getLookPeopleNum());

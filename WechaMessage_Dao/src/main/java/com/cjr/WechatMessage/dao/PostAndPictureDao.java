@@ -1,6 +1,7 @@
 package com.cjr.WechatMessage.dao;
 
 import com.cjr.WechatMessage.entity.PostAndPicture;
+import org.springframework.stereotype.Repository;
 
 /**
  * @Created with qml
@@ -8,6 +9,7 @@ import com.cjr.WechatMessage.entity.PostAndPicture;
  * @Date:2019/5/8
  * @Time:13:37
  */
+@Repository("postAndPictureDao")
 public interface PostAndPictureDao {
     /**
      * 插入帖子相关的图片信息

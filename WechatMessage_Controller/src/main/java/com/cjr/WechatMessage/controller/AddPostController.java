@@ -28,6 +28,9 @@ public class AddPostController {
     @Autowired
     private TransactionPostService transactionPostService;
 
+    @Autowired
+    private PostAndPictureController postAndPictureController;
+
     @ResponseBody
     @RequestMapping("/addpost")
     public Map<String,String> doAddPost(Model model,
@@ -35,7 +38,7 @@ public class AddPostController {
                                         @RequestParam(value = "mode",required = true)String postType,
                                         @RequestParam(value = "content",required = true)String postContent,
                                         @RequestParam(value = "is_anonymous",required = false)String isAnonymous,
-                                        @RequestParam(value = "photos",required = false)String postPhotos){
+                                        @RequestParam(value = "photos",required = false)String[] postPhotos){
 
         System.out.println("openid:"+userId);
         System.out.println("mode:"+postType);
@@ -70,7 +73,7 @@ public class AddPostController {
         post.setPostId(userId+returnStr);
         post.setPostContent(postContent);
         if(postPhotos!=null){
-            post.setPostPhotos(postPhotos);
+            postAndPictureController.doAddPicture(userId+returnStr, postPhotos);
         }
         else {
             post.setPostPhotos(null);
