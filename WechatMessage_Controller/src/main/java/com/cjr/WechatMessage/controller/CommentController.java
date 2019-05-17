@@ -1,6 +1,7 @@
 package com.cjr.WechatMessage.controller;
 
 import com.cjr.WechatMessage.entity.CommentAndUser;
+import com.cjr.WechatMessage.service.CommentService;
 import com.cjr.WechatMessage.service.Impl.CommentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import java.util.Map;
 public class CommentController {
 
     @Autowired
-    private CommentServiceImpl commentService;
+    private CommentService commentService;
     @ResponseBody
     @RequestMapping("/comment")
     public Map<String,String> comment(Model model,

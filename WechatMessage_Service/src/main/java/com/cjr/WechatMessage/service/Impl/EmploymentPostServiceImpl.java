@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service("transactionPostService")
+@Service("employmentPostServiceImpl")
 public class EmploymentPostServiceImpl implements EmploymentPostService {
     @Resource(name = "employmentPostDao")
     private EmploymentPostDao employmentPostDao;

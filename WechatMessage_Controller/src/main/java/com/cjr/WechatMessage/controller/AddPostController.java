@@ -1,9 +1,11 @@
 package com.cjr.WechatMessage.controller;
 
 import com.cjr.WechatMessage.entity.*;
-import com.cjr.WechatMessage.service.Impl.BlinddatePostServiceImpl;
-import com.cjr.WechatMessage.service.Impl.EmploymentPostServiceImpl;
-import com.cjr.WechatMessage.service.Impl.TransactionPostServiceImpl;
+import com.cjr.WechatMessage.global.DateUtil;
+import com.cjr.WechatMessage.global.UrlUtil;
+import com.cjr.WechatMessage.service.BlinddatePostService;
+import com.cjr.WechatMessage.service.EmploymentPostService;
+import com.cjr.WechatMessage.service.TransactionPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,12 +20,13 @@ import java.util.Map;
 
 @Controller("addPostController")
 public class AddPostController {
-    @Resource(name = "blinddatePostService")
-    private BlinddatePostServiceImpl blinddatePostService;
-    @Resource(name = "employmentPostService")
-    private EmploymentPostServiceImpl employmentPostService;
-    @Resource(name = "transactionPostService")
-    private TransactionPostServiceImpl transactionPostService;
+
+    @Autowired
+    private BlinddatePostService blinddatePostService;
+    @Autowired
+    private EmploymentPostService employmentPostService;
+    @Autowired
+    private TransactionPostService transactionPostService;
     @Autowired
     private PostAndPictureController postAndPictureController;
     @ResponseBody
@@ -36,17 +38,24 @@ public class AddPostController {
                                         @RequestParam(value = "is_anonymous",required = false)String isAnonymous,
                                         @RequestParam(value = "photos",required = false)String[] postPhotos){
 
+        System.out.println("openid:"+userId);
+        System.out.println("mode:"+postType);
+        System.out.println("content:"+postContent);
+        System.out.println("is_anonymous:"+isAnonymous);
+        System.out.println("photos:"+postPhotos);
+
         Post post;
         Map<String,String> map = new HashMap<String, String>();
-        if(postType.equals(String.valueOf(Common.Blinddate.hashCode()))){
+        if(postType.equals(String.valueOf(Common.Blinddate.ordinal()))){
+            System.out.println("blinddate");
             post = new BlinddatePost();
-            post.setPostType(Common.Blinddate.hashCode());
-        }else if(postType.equals(String.valueOf(Common.Employment.hashCode()))){
+            post.setPostType(Common.Blinddate.ordinal());
+        }else if(postType.equals(String.valueOf(Common.Employment.ordinal()))){
             post = new EmploymentPost();
-            post.setPostType(Common.Employment.hashCode());
-        }else if(postType.equals(String.valueOf(Common.Transaction.hashCode()))){
+            post.setPostType(Common.Employment.ordinal());
+        }else if(postType.equals(String.valueOf(Common.Transaction.ordinal()))){
             post = new TransactionPost();
-            post.setPostType(Common.Transaction.hashCode());
+            post.setPostType(Common.Transaction.ordinal());
         } else{
             post = null;
 
@@ -58,7 +67,7 @@ public class AddPostController {
         String returnStr = null;
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
-        returnStr = f.format(date);
+        returnStr = DateUtil.dateTimeToString(date);
         post.setPostCreateTime(date);
         post.setPostId(userId+returnStr);
         post.setPostContent(postContent);
@@ -78,9 +87,9 @@ public class AddPostController {
         }
         boolean flag;
 
-        if(post.getPostType()==Common.Blinddate.hashCode()){
+        if(post.getPostType()==Common.Blinddate.ordinal()){
             flag = blinddatePostService.addBlinddatePost(post);
-        }else if(post.getPostType()==Common.Employment.hashCode()){
+        }else if(post.getPostType()==Common.Employment.ordinal()){
             flag = employmentPostService.addEmploymentPost(post);
         }else {
             flag = transactionPostService.addTransactionPost(post);

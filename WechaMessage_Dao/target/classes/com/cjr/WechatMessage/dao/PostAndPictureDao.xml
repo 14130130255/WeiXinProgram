@@ -34,7 +34,7 @@
         select * from postAndPicture where postId=#{postId}
     </select>
 
-    <select id="selectOne" resultMap="String">
+    <select id="selectOne" resultMap="postAndPicture">
         select #{1} from postAndPicture where userId=#{0}
     </select>
 </mapper>

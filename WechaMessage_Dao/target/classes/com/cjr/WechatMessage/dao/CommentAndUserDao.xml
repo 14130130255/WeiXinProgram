@@ -17,7 +17,7 @@
     </insert>
 
     <update id="update" parameterType="CommentAndUser">
-        update commentanduser set postId=#{postId}, commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentContent=#{commentContent},postType=#{postType} WHERE commentId=#{commentId}
+        update commentanduser set commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentId=#{commentId},commentContent=#{commentContent},postType=#{postType} WHERE postId=#{postId}
     </update>
 
     <delete id="delete" parameterType="String">
