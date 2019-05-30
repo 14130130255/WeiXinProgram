@@ -26,8 +26,7 @@ public class PostAndPictureController {
     @Autowired
     private PostAndPictureService postAndPictureService;
 
-
-    private PostAndPicture postAndPicture;
+    //private PostAndPicture postAndPicture;
 
     /**
      * 非接口
@@ -38,19 +37,30 @@ public class PostAndPictureController {
      */
     public void doAddPicture(String postId, String[] pictures) {
 
+        PostAndPicture postAndPicture = new PostAndPicture();
         postAndPicture.setPostId(postId);
         int length = pictures.length;
-        if (length < 6) {
-            for (int i=length; i < 6; i++) {
-                pictures[i] = null;
+        System.out.println(length);
+        String picturesDB[] = new String[6];
+        if (length < 7 && length > -1) {
+            for (int i=0; i < length; i++) {
+                System.out.println(i);
+                picturesDB[i] = pictures[i];
+
             }
+            for (int j=length; j<6; j++) {
+                picturesDB[j] = "";
+            }
+
+        }else {
+            System.out.println("照片长度异常");
         }
-        postAndPicture.setPicture1(pictures[0]);
-        postAndPicture.setPicture2(pictures[1]);
-        postAndPicture.setPicture3(pictures[2]);
-        postAndPicture.setPicture4(pictures[3]);
-        postAndPicture.setPicture5(pictures[4]);
-        postAndPicture.setPicture6(pictures[5]);
+        postAndPicture.setPicture1(picturesDB[0]);
+        postAndPicture.setPicture2(picturesDB[1]);
+        postAndPicture.setPicture3(picturesDB[2]);
+        postAndPicture.setPicture4(picturesDB[3]);
+        postAndPicture.setPicture5(picturesDB[4]);
+        postAndPicture.setPicture6(picturesDB[5]);
 
         postAndPictureService.insert(postAndPicture);
     }
@@ -78,6 +88,7 @@ public class PostAndPictureController {
     @RequestMapping("/selectByPostId")
     public Map<String, String> doSelectByPostId(Model model,
                                                 @RequestParam(value = "psotId", required = true)String postId) {
+        PostAndPicture postAndPicture = new PostAndPicture();
         postAndPicture = postAndPictureService.selectByPortId(postId);
         Map<String, String> pictures = new HashMap<>();
         pictures.put("picture1", postAndPicture.getPicture1());
@@ -97,6 +108,7 @@ public class PostAndPictureController {
      * @return
      */
     public String[] selectByPostId(String postId) {
+        PostAndPicture postAndPicture = new PostAndPicture();
         postAndPicture = postAndPictureService.selectByPortId(postId);
         String pictures[] = new String[6];
         pictures[0] = postAndPicture.getPicture1();

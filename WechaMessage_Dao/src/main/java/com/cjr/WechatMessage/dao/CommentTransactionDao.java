@@ -11,8 +11,8 @@ import java.util.List;
  * @Date:2019/4/27
  * @Time:16:00
  */
-@Repository("commentAndUserDao")
-public interface CommentAndUserDao {
+@Repository("commentTransactionDao")
+public interface CommentTransactionDao {
 
     /**
      * 插入新的评论

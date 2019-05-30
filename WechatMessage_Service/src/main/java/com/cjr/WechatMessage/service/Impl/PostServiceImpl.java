@@ -12,6 +12,7 @@ import com.cjr.WechatMessage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class PostServiceImpl implements PostService {
     private NewsPostDao newsPostDao;
 
     //每页显示的帖子数
-    private int postNumOfPage = 5;
+    private int postNumOfPage = 10;
 
     /**
      * 根据postId查询帖子（未实现）
@@ -78,16 +79,52 @@ public class PostServiceImpl implements PostService {
          */
         switch (model) {
             case 0:
-                posts = null;
+                posts = selectAll(1, index);
+                posts.addAll(selectAll(2, index));
+                posts.addAll(selectAll(3, index));
+                posts.addAll(selectAll(4, index));
                 break;
             case 1:
-                posts = selectAll(1, index);
+                posts = selectAll(4, index);
                 break;
             case 2:
-                posts = selectAll(2, index);
+                posts = selectAll(3, index);
                 break;
             case 3:
-                posts = selectAll(3, index);
+                posts = selectAll(4, index);
+                posts.addAll(selectAll(3, index));
+                break;
+            case 4:
+                posts = selectAll(2, index);
+                break;
+            case 5:
+                posts = selectAll(2, index);
+                posts.addAll(selectAll(4, index));
+                break;
+            case 6:
+                posts = selectAll(2, index);
+                posts.addAll(selectAll(3, index));
+                break;
+            case 7:
+                posts = selectAll(2, index);
+                posts.addAll(selectAll(3, index));
+                posts.addAll(selectAll(4, index));
+                break;
+            case 8:
+                posts = selectAll(1, index);
+                break;
+            case 9:
+                posts = selectAll(1, index);
+                posts.addAll(selectAll(4, index));
+                break;
+            case 10:
+                posts = selectAll(1, index);
+                posts.addAll(selectAll(3, index));
+                break;
+            case 11:
+                posts = selectAll(1, index);
+                posts.addAll(selectAll(3, index));
+                posts.addAll(selectAll(4, index));
                 break;
             case 12:
                 posts = selectAll(1, index);
@@ -95,24 +132,29 @@ public class PostServiceImpl implements PostService {
                 break;
             case 13:
                 posts = selectAll(1, index);
-                posts.addAll(selectAll(3, index));
+                posts.addAll(selectAll(2, index));
+                posts.addAll(selectAll(4, index));
                 break;
-            case 23:
-                posts = selectAll(2, index);
-                posts.addAll(selectAll(3, index));
-                break;
-            case 123:
+            case 14:
                 posts = selectAll(1, index);
                 posts.addAll(selectAll(2, index));
                 posts.addAll(selectAll(3, index));
                 break;
+            case 15:
+                posts = selectAll(1, index);
+                posts.addAll(selectAll(2, index));
+                posts.addAll(selectAll(3, index));
+                posts.addAll(selectAll(4, index));
+                break;
             default:
                 break;
         }
-        if (index * postNumOfPage >= posts.size()) {
+        if ( posts == null ||index * postNumOfPage >= posts.size()) {
             return null;
         }
-        return posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size()-1 : (index+1)*postNumOfPage);
+        List<Post> subposts= posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size()-1 : (index+1)*postNumOfPage);
+        Collections.sort(subposts);
+        return subposts;
     }
 
     /**

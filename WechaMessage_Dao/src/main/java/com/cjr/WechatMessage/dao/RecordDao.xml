@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjr.WechatMessage.dao.RecordDao">
+
+    <resultMap id="record" type="Record">
+        <result column="postId" property="postId" javaType="String"/>
+        <result column="imageUrl" property="imageUrl" javaType="String"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Record">
+        insert into record values(#{postId},#{imageUrl})
+    </insert>
+
+    <select id="selectByPostId" parameterType="String" resultMap="record">
+        select imageUrl from record where postId=#{postId}
+    </select>
+
+    <select id="selectByImageUrl" resultMap="record">
+        select * from record where imageUrl=#{arg0} AND postId=#{arg1}
+    </select>
+
+</mapper>

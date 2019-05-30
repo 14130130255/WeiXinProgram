@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 public class QiniuUtils {
 
     //七牛AK
-    public static final String accessKey = "0qDdrpshF7cQyponShbhhFLzcG9aqT_FZugNH3Ln";
+    public static final String accessKey = "C1chDbXGnD8O9iyc3aW_4B9kkYGvsxAMFy0abCtu";
 
     //七牛SK
-    public static final String secretKey = "dZjXFWwEQfrWIQQMm-9uGFkFgCq-ne36sF-5aC38";
+    public static final String secretKey = "Et_rMBbbj2usHdRDSZx-YDe69A0cXdRACTeZL1NV";
 
     //七牛存储空间名
-    public static final String bucket = "qml_wxxcx";
+    public static final String bucket = "wechatmessage";
 
     //七牛默认域名
-    public static final String domain = "http://pqgogb1i7.bkt.clouddn.com";
+    public static final String domain = "http://prsd8dijv.bkt.clouddn.com";
 }

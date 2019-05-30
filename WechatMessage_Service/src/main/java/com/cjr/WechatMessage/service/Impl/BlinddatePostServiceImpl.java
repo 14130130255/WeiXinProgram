@@ -26,4 +26,15 @@ public class BlinddatePostServiceImpl implements BlinddatePostService {
 
 
     }
+
+    public void changeLikeNum(String postId, Boolean isClicked) {
+        Post post = blinddatePostDao.selectByPostId(postId);
+        int postLikeNum = post.getPostLikeNum();
+        if(isClicked == true){
+            post.setPostLikeNum(postLikeNum+1);
+        }else if(isClicked == false){
+            post.setPostLikeNum(postLikeNum-1);
+        }
+        blinddatePostDao.update(post);
+    }
 }

@@ -24,6 +24,7 @@ public class QiNiu {
     @ResponseBody
     @RequestMapping("/getQiNiuUpToken")
     public String doGetQiNiuUpToken(Model model){
+
         return QiniuUpload.getUpToken();
     }
 }

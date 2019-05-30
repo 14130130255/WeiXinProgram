@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjr.WechatMessage.dao.PostAndPictureDao">
+
+    <!--定义映射结果集-->
+    <resultMap id="postAndPicture" type="PostAndPicture">
+        <result property="postId" column="postId" javaType="String"/>
+        <result property="picture1" column="picture1" javaType="String"/>
+        <result property="picture2" column="picture2" javaType="String"/>
+        <result property="picture3" column="picture3" javaType="String"/>
+        <result property="picture4" column="picture4" javaType="String"/>
+        <result property="picture5" column="picture5" javaType="String"/>
+        <result property="picture6" column="picture6" javaType="String"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="PostAndPicture">
+        insert into postAndPicture values(#{postId},#{picture1},#{picture2},#{picture3},#{picture4},#{picture5},#{picture6})
+    </insert>
+
+    <update id="update" parameterType="PostAndPicture">
+        update postAndPicture set picture1=#{picture1},picture2=#{picture2},picture3=#{picture3},picture4=#{picture4},picture5=#{picture5},picture6=#{picture6}
+        WHERE postId=#{postId}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from postAndPicture where postId=#{postId}
+    </delete>
+
+    <update id="deleteOnePicture">
+        UPDATE postAndPicture SET #{1}=NULL WHERE postId=#{0}
+    </update>
+
+    <select id="select" parameterType="String" resultMap="postAndPicture">
+        select * from postAndPicture where postId=#{postId}
+    </select>
+
+    <select id="selectOne" resultMap="postAndPicture">
+        select #{1} from postAndPicture where userId=#{0}
+    </select>
+</mapper>
