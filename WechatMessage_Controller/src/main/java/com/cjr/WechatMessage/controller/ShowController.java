@@ -44,10 +44,12 @@ public class ShowController {
         List<Post> employmentPosts = postService.selectAll(2,index);
         List<Post> transactionPosts = postService.selectAll(3,index);
         List<Post> newsPosts = postService.selectAll(4,index);
+
         if(bindDatePosts==null){
             map.put("databindDate",null);
         }
         else{
+
             listToMap(bindDatePosts,map,"bindDate");
         }
         if(employmentPosts==null){
@@ -159,8 +161,8 @@ public class ShowController {
         }
         return map;
     }
-  
-  
+
+
     /**
      * 将list中的帖子对象属性转换存储在map中
      * @param posts
@@ -169,6 +171,7 @@ public class ShowController {
     public void listToMap(List<Post> posts, Map<String, Object> map,String type) {
         JSONObject[] jsonObjects = new JSONObject[10];
         int index = 0;
+        System.out.println(posts.size());
         for (Post post : posts){
             String photos[] = new String[6];
             JSONObject jsonObject = new JSONObject();
@@ -193,6 +196,7 @@ public class ShowController {
                 }
             }
             jsonObject.put("postPhotos", photos);
+//            jsonObject.put("postPhotos", post.getPostPhotos());
             jsonObject.put("postLikeNum", post.getPostLikeNum());
             jsonObject.put("postCommentNum", post.getPostCommentNum());
             jsonObject.put("lookPeopleNum", post.getLookPeopleNum());
@@ -204,3 +208,4 @@ public class ShowController {
         map.put("data"+type, jsonObjects);
     }
 }
+

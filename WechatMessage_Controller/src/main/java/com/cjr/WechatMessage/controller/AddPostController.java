@@ -49,6 +49,12 @@ public class AddPostController {
         System.out.println("is_anonymous:" + isAnonymous);
         System.out.println("photos:" + postPhotos.toString());
 
+        System.out.println("openid:"+userId);
+        System.out.println("mode:"+postType);
+        System.out.println("content:"+postContent);
+        System.out.println("is_anonymous:"+isAnonymous);
+        System.out.println("photos:"+postPhotos);
+
         Post post;
         Map<String, String> map = new HashMap<String, String>();
         if (postType.equals(String.valueOf(Common.Blinddate.ordinal()))) {
@@ -93,9 +99,9 @@ public class AddPostController {
         }
         boolean flag;
 
-        if (post.getPostType() == Common.Blinddate.ordinal()) {
+        if(post.getPostType()==Common.Blinddate.ordinal()){
             flag = blinddatePostService.addBlinddatePost(post);
-        } else if (post.getPostType() == Common.Employment.ordinal()) {
+        }else if(post.getPostType()==Common.Employment.ordinal()){
             flag = employmentPostService.addEmploymentPost(post);
         } else if (post.getPostType() == Common.Transaction.ordinal()) {
             flag = transactionPostService.addTransactionPost(post);
