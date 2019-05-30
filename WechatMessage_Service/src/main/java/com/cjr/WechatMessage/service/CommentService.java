@@ -2,8 +2,10 @@ package com.cjr.WechatMessage.service;
 
 import com.cjr.WechatMessage.entity.CommentAndUser;
 
+import java.util.Map;
+
 public interface CommentService {
 
-    public boolean comment(CommentAndUser commentAndUser);
+    public Map<String,Object> comment(CommentAndUser commentAndUser, Integer postType, String postId);
 
 }

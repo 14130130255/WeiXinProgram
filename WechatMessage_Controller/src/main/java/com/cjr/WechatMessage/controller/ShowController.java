@@ -1,16 +1,14 @@
 package com.cjr.WechatMessage.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cjr.WechatMessage.entity.Post;
 
 
 import com.cjr.WechatMessage.entity.User;
 import com.cjr.WechatMessage.global.DateUtil;
-import com.cjr.WechatMessage.service.Impl.PostServiceImpl;
-import com.cjr.WechatMessage.service.Impl.UserServiceImpl;
 import com.cjr.WechatMessage.service.PostService;
 import com.cjr.WechatMessage.service.UserService;
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,11 +43,13 @@ public class ShowController {
         List<Post> bindDatePosts = postService.selectAll(1,index);
         List<Post> employmentPosts = postService.selectAll(2,index);
         List<Post> transactionPosts = postService.selectAll(3,index);
+        List<Post> newsPosts = postService.selectAll(4,index);
+
         if(bindDatePosts==null){
             map.put("databindDate",null);
         }
         else{
-            System.out.println("111");
+
             listToMap(bindDatePosts,map,"bindDate");
         }
         if(employmentPosts==null){
@@ -64,6 +64,12 @@ public class ShowController {
         else{
             listToMap(transactionPosts,map,"transaction");
         }
+        if(newsPosts==null){
+            map.put("datatnews",null);
+        }
+        else{
+            listToMap(newsPosts,map,"news");
+        }
         return map;
     }
 
@@ -77,9 +83,14 @@ public class ShowController {
     public Map<String,Object> doShowLikePost(Model model,
                                       @RequestParam(value="openId",required = false)String openId,
                                       @RequestParam(value = "index",required = false)int index) {
+        System.out.println(index);
         List<Post> posts = postService.selectLike(openId, index);
         Map<String,Object> map = new HashMap<String, Object>();
-        listToMap(posts, map,"like");
+        if(posts==null){
+            map.put("like",null);
+        }else{
+            listToMap(posts, map,"like");
+        }
         return map;
     }
 
@@ -91,7 +102,6 @@ public class ShowController {
      */
     public Map<String,Object> doShowBlindDatePost(Model model,
                                       @RequestParam(value="index",required = false)int index) {
-        System.out.println(index);
         List<Post> posts = postService.selectAll(1, index);
         Map<String,Object> map = new HashMap<String, Object>();
         if(posts==null){
@@ -110,7 +120,6 @@ public class ShowController {
      */
     public Map<String,Object> doShowEmploymentPost(Model model,
                                                   @RequestParam(value="index",required = false)int index) {
-        System.out.println(index);
         List<Post> posts = postService.selectAll(2, index);
         Map<String,Object> map = new HashMap<String, Object>();
         if(posts==null){
@@ -129,7 +138,6 @@ public class ShowController {
      */
     public Map<String,Object> doShowTransactionPost(Model model,
                                                   @RequestParam(value="index",required = false)int index) {
-        System.out.println(index);
         List<Post> posts = postService.selectAll(3, index);
         Map<String,Object> map = new HashMap<String, Object>();
         if(posts==null){
@@ -144,7 +152,6 @@ public class ShowController {
     @RequestMapping("/showNewsPost")
     public Map<String,Object> doShowNewsPost(Model model,
                                              @RequestParam(value="index",required = false)int index){
-        System.out.println(index);
         List<Post> posts = postService.selectAll(4,index);
         Map<String,Object> map = new HashMap<>();
         if(posts==null){
@@ -162,7 +169,7 @@ public class ShowController {
      * @param map
      */
     public void listToMap(List<Post> posts, Map<String, Object> map,String type) {
-        JSONObject[] jsonObjects = new JSONObject[5];
+        JSONObject[] jsonObjects = new JSONObject[10];
         int index = 0;
         System.out.println(posts.size());
         for (Post post : posts){
@@ -170,9 +177,10 @@ public class ShowController {
             JSONObject jsonObject = new JSONObject();
             if(post.isAnonymous()==true){
                 jsonObject.put("nickName","匿名用户");
-            }else{
+            }else {
                 User user = userService.getByOpenId(post.getUserId());
-                jsonObject.put("nickName",user.getNickName());
+                jsonObject.put("nickName", user.getNickName());
+                jsonObject.put("avatar",user.getAvatarUrl());
             }
 
             String time = DateUtil.dateTimeToString(post.getPostCreateTime());
@@ -180,7 +188,7 @@ public class ShowController {
             jsonObject.put("postType", post.getPostType());
             jsonObject.put("userId", post.getUserId());
             jsonObject.put("postContent", post.getPostContent());
-            if (Integer.parseInt(post.getPostPhotos()) == 1) {
+            if (post.getPostPhotos()!="" && Integer.parseInt(post.getPostPhotos()) == 1) {
                 photos = postAndPictureController.selectByPostId(post.getPostId());
             }else {
                 for (int i=0; i < 6; i++) {

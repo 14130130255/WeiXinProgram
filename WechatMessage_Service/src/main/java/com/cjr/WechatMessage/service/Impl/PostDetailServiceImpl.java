@@ -1,17 +1,20 @@
 package com.cjr.WechatMessage.service.Impl;
 
-import com.cjr.WechatMessage.dao.BlinddatePostDao;
-import com.cjr.WechatMessage.dao.CommentAndUserDao;
-import com.cjr.WechatMessage.dao.EmploymentPostDao;
-import com.cjr.WechatMessage.dao.TransactionPostDao;
+import com.cjr.WechatMessage.dao.*;
 import com.cjr.WechatMessage.entity.*;
+import com.cjr.WechatMessage.global.DateUtil;
+import com.cjr.WechatMessage.service.PostAndPictureService;
 import com.cjr.WechatMessage.service.PostDetailService;
-import net.sf.json.JSONArray;
+import com.cjr.WechatMessage.service.UserService;
+import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
 *
@@ -23,44 +26,137 @@ import java.util.List;
 public class PostDetailServiceImpl implements PostDetailService {
 
     @Autowired
-    private BlinddatePostDao blinddatePostDao;
+    private CommentBlinddateDao commentBlinddateDao;
+    @Autowired
+    private CommentEmploymentDao commentEmploymentDao;
+    @Autowired
+    private CommentTransactionDao commentTransactionDao;
+    @Autowired
+    private CommentNoticeDao commentNoticeDao;
+    @Autowired
+    private UserDao userDao;
 
+    @Autowired
+    private BlinddatePostDao blinddatePostDao;
     @Autowired
     private EmploymentPostDao employmentPostDao;
-
     @Autowired
     private TransactionPostDao transactionPostDao;
-
     @Autowired
-    private CommentAndUserDao commentAndUserDao;
-    public String getPostDetail(String postId,int postType) {
+    private NewsPostDao newsPostDao;
+    @Autowired
+    private RecordDao recordDao;
 
-        String postJsonString;
-        Post post;
+    public void addLookPeopleNum(String postId,int postType,String openid){
+        Post post = null;
+        Record record = null;
+        User user = userDao.selectByOpenId(openid);
+        System.out.println(user.getAvatarUrl());
+        record = recordDao.selectByImageUrl(user.getAvatarUrl(),postId);
 
-        if(postType == Common.Blinddate.hashCode()){
-            post = blinddatePostDao.selectByPostId(postId);
-            postJsonString = Utils.objectToJson(post);
+        if(record==null) {
+            record = new Record();
+            record.setImageUrl(user.getAvatarUrl());
+            record.setPostId(postId);
+            recordDao.insert(record);
+            switch(postType){
+                case 0:
+                    //点击进入详情页，帖子浏览人数增加1
+                    post = blinddatePostDao.selectByPostId(postId);
+                    post.setLookPeopleNum(post.getLookPeopleNum()+1);
+                    blinddatePostDao.update(post);
+                    break;
+                case 1:
+                    //点击进入详情页，帖子浏览人数增加1
+                    post = employmentPostDao.selectByPostId(postId);
+                    post.setLookPeopleNum(post.getLookPeopleNum()+1);
+                    employmentPostDao.update(post);
+                    break;
+                case 2:
+                    //点击进入详情页，帖子浏览人数增加1
+                    post = transactionPostDao.selectByPostId(postId);
+                    post.setLookPeopleNum(post.getLookPeopleNum()+1);
+                    transactionPostDao.update(post);
+                    break;
+                case 3:
+                    //点击进入详情页，帖子浏览人数增加1
+                    post = newsPostDao.selectByPostId(postId);
+                    post.setLookPeopleNum(post.getLookPeopleNum()+1);
+                    newsPostDao.update(post);
+                    break;
+            }
+        }else{
+            System.out.println("头像已存在");
+        }
+    }
 
-        }else if(postType == Common.Employment.hashCode()){
-            post = employmentPostDao.selectByPostId(postId);
-            postJsonString = Utils.objectToJson(post);
 
-        }else if(postType == Common.Transaction.hashCode()){
-            post = transactionPostDao.selectByPostId(postId);
-            postJsonString = Utils.objectToJson(post);
+    public Map<String,Object> getPostDetail(String postId, int postType) {
 
-        }else
-            postJsonString = "type error";
-        String commentAndUserJsonString;
-        List<CommentAndUser> commentAndUserList = commentAndUserDao.selectByPostId(postId);
-        commentAndUserJsonString = Utils.objectToJson(commentAndUserList);
+        Map<String,Object> map = new HashMap<String, Object>();
 
-        JSONObject returnobj = new JSONObject();
-        returnobj.put("post",postJsonString);
-        returnobj.put("commentAndUser",commentAndUserJsonString);
 
-        return returnobj.toString();
+        List<CommentAndUser> commentLists = null;
+
+        List<Record> records = recordDao.selectByPostId(postId);
+
+        switch(postType){
+            case 0:
+                //根据帖子id获取评论列表
+                commentLists = commentBlinddateDao.selectByPostId(postId);
+                break;
+            case 1:
+                //根据帖子id获取评论列表
+                commentLists = commentEmploymentDao.selectByPostId(postId);
+                break;
+            case 2:
+                //根据帖子id获取评论列表
+                commentLists = commentTransactionDao.selectByPostId(postId);
+                break;
+            case 3:
+                //根据帖子id获取评论列表
+                commentLists = commentNoticeDao.selectByPostId(postId);
+                break;
+        }
+        commentlistToMap(map, commentLists);
+        recordlistToMap(map,records);
+
+        return map;
+    }
+    public void recordlistToMap(Map<String,Object> map,List<Record> lists){
+        int length = lists.size();
+        String[] avatarArray = new String[length];
+        int index = 0;
+        JSONObject jsonObject = new JSONObject();
+        for(Record record:lists){
+            avatarArray[index] = record.getImageUrl();
+            index++;
+        }
+        jsonObject.put("avatarArray",avatarArray);
+        map.put("avatarData",jsonObject);
+    }
+
+    public void commentlistToMap(Map<String,Object> map,List<CommentAndUser> lists){
+        int length = lists.size();
+        int index = 0;
+        JSONObject[] commentJsonObject = new JSONObject[length];
+        for(CommentAndUser commentAndUser:lists){
+            JSONObject jsonObject = new JSONObject();
+            User commentuser = userDao.selectByOpenId(commentAndUser.getCommentUserId());
+            User tocommentuser = userDao.selectByOpenId(commentAndUser.getToCommentUserId());
+            jsonObject.put("postId",commentAndUser.getPostId());
+            jsonObject.put("commentUserNickName",commentuser.getNickName());
+            jsonObject.put("commentUserAvatar",commentuser.getAvatarUrl());
+            jsonObject.put("tocommentUserNickName",tocommentuser.getNickName());
+            jsonObject.put("tocommentUserAvatar",tocommentuser.getAvatarUrl());
+            jsonObject.put("commentContent",commentAndUser.getCommentContent());
+            jsonObject.put("postType",commentAndUser.getPostType());
+            String time = DateUtil.dateTimeToString(commentAndUser.getCreateTime());
+            jsonObject.put("createTime",time);
+            commentJsonObject[index] = jsonObject;
+            index++;
+        }
+        map.put("commentLists",commentJsonObject);
     }
 
 

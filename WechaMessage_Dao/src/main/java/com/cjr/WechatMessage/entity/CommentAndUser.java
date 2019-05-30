@@ -1,5 +1,7 @@
 package com.cjr.WechatMessage.entity;
 
+import java.util.Date;
+
 /**
  * @Created with qml
  * @author:qml
@@ -20,6 +22,16 @@ public class CommentAndUser {
     private String commentContent;
 
     private int postType;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    private Date createTime;
 
     public String getPostId() {
         return postId;

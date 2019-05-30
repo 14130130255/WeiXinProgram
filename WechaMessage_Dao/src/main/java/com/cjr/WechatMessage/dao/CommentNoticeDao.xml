@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjr.WechatMessage.dao.CommentNoticeDao">
+
+    <!--定义映射结果集-->
+    <resultMap id="commentNotice" type="CommentAndUser">
+        <result property="postId" column="postId" javaType="String"/>
+        <result property="commentUserId" column="commentUserId" javaType="String"/>
+        <result property="toCommentUserId" column="toCommentUserId" javaType="String"/>
+        <result property="commentId" column="commentId" javaType="int"/>
+        <result property="commentContent" column="commentContent" javaType="String"/>
+        <result property="postType" column="postType" javaType="int"/>
+        <result property="createTime" column="createTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="CommentAndUser">
+        insert into comment_notice(postId,commentUserId,toCommentUserId,commentContent,postType,createTime) values(#{postId},#{commentUserId},#{toCommentUserId},#{commentContent},#{postType},#{createTime})
+    </insert>
+
+    <update id="update" parameterType="CommentAndUser">
+<<<<<<< HEAD:WechaMessage_Dao/src/main/java/com/cjr/WechatMessage/dao/CommentNoticeDao.xml
+        update comment_notice set postId=#{postId}, commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentContent=#{commentContent},postType=#{postType},createTime=#{createTime} WHERE commentId=#{commentId}
+=======
+        update commentanduser set commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentId=#{commentId},commentContent=#{commentContent},postType=#{postType} WHERE postId=#{postId}
+>>>>>>> 724b281f9f1843a12fbbe64489410d8200a6e680:WechaMessage_Dao/target/classes/com/cjr/WechatMessage/dao/CommentAndUserDao.xml
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE from comment_notice WHERE commentId=#{commentId}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultMap="commentNotice">
+        select * from comment_notice where commentId=#{commentId}
+    </select>
+
+    <select id="selectByPostId" parameterType="String" resultMap="commentNotice">
+        select * from comment_notice where postId=#{postId}
+    </select>
+
+</mapper>

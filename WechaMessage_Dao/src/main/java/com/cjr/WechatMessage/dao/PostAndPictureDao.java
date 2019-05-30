@@ -3,8 +3,6 @@ package com.cjr.WechatMessage.dao;
 import com.cjr.WechatMessage.entity.PostAndPicture;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
-
 /**
  * @Created with qml
  * @author:qml

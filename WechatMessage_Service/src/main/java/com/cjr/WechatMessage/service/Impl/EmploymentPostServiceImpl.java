@@ -23,4 +23,15 @@ public class EmploymentPostServiceImpl implements EmploymentPostService {
             return false;
         }
     }
+
+    public void changeLikeNum(String postId, Boolean isClicked) {
+        Post post = employmentPostDao.selectByPostId(postId);
+        int postLikeNum = post.getPostLikeNum();
+        if(isClicked == true){
+            post.setPostLikeNum(postLikeNum+1);
+        }else if(isClicked == false){
+            post.setPostLikeNum(postLikeNum-1);
+        }
+        employmentPostDao.update(post);
+    }
 }

@@ -1,11 +1,8 @@
-package com.cjr.WechatMessage.entity;
+package com.cjr.WechatMessage.global;
 
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
-
-import java.io.IOException;
-import java.util.List;
 
 //转换json工具类
 public class Utils {

@@ -21,4 +21,15 @@ public class TransactionPostServiceImpl implements TransactionPostService {
             return false;
         }
     }
+
+    public void changeLikeNum(String postId, Boolean isClicked) {
+        Post post = transactionPostDao.selectByPostId(postId);
+        int postLikeNum = post.getPostLikeNum();
+        if(isClicked == true){
+            post.setPostLikeNum(postLikeNum+1);
+        }else if(isClicked == false){
+            post.setPostLikeNum(postLikeNum-1);
+        }
+        transactionPostDao.update(post);
+    }
 }

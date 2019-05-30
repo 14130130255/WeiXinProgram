@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjr.WechatMessage.dao.CommentTransactionDao">
+
+    <!--定义映射结果集-->
+    <resultMap id="commentTransaction" type="CommentAndUser">
+        <result property="postId" column="postId" javaType="String"/>
+        <result property="commentUserId" column="commentUserId" javaType="String"/>
+        <result property="toCommentUserId" column="toCommentUserId" javaType="String"/>
+        <result property="commentId" column="commentId" javaType="int"/>
+        <result property="commentContent" column="commentContent" javaType="String"/>
+        <result property="postType" column="postType" javaType="int"/>
+        <result property="createTime" column="createTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="CommentAndUser">
+        insert into comment_transaction(postId,commentUserId,toCommentUserId,commentContent,postType,createTime) values(#{postId},#{commentUserId},#{toCommentUserId},#{commentContent},#{postType},#{createTime})
+    </insert>
+
+    <update id="update" parameterType="CommentAndUser">
+        update comment_transaction set postId=#{postId}, commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentContent=#{commentContent},postType=#{postType},createTime=#{createTime} WHERE commentId=#{commentId}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE from comment_transaction WHERE commentId=#{commentId}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultMap="commentTransaction">
+        select * from comment_transaction where commentId=#{commentId}
+    </select>
+
+    <select id="selectByPostId" parameterType="String" resultMap="commentTransaction">
+        select * from comment_transaction where postId=#{postId}
+    </select>
+
+</mapper>

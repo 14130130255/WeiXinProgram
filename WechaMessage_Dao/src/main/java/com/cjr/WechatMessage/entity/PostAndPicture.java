@@ -1,5 +1,7 @@
 package com.cjr.WechatMessage.entity;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @Created with qml
  * @author:qml

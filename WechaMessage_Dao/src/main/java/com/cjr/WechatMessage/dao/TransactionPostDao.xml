@@ -55,7 +55,7 @@
     </select>
 
     <select id="selectAll" parameterType="String" resultMap="transactionPost">
-        select * from transactionpost
+        select * from transactionpost order by  postCreateTime DESC
     </select>
 
 </mapper>

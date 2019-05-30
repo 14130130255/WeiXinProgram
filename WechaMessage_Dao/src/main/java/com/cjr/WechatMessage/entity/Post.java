@@ -2,7 +2,7 @@ package com.cjr.WechatMessage.entity;
 
 import java.util.Date;
 
-public class Post {
+public class Post implements Comparable<Post>{
     /**
      *
      * `postId` varchar(255) NOT NULL,
@@ -106,5 +106,10 @@ public class Post {
 
     public void setPostCreateTime(Date postCreateTime) {
         this.postCreateTime = postCreateTime;
+    }
+
+
+    public int compareTo(Post post) {
+        return postCreateTime.compareTo(post.getPostCreateTime());
     }
 }
