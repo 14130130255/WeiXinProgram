@@ -55,11 +55,7 @@
     </select>
 
     <select id="selectAll" resultMap="blinddatePost">
-<<<<<<< HEAD
         select * from blinddatepost order by  postCreateTime DESC
-=======
-        select * from blinddatepost
->>>>>>> 724b281f9f1843a12fbbe64489410d8200a6e680
     </select>
 
 </mapper>

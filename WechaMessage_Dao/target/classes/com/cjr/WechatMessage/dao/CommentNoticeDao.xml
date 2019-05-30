@@ -18,11 +18,7 @@
     </insert>
 
     <update id="update" parameterType="CommentAndUser">
-<<<<<<< HEAD:WechaMessage_Dao/src/main/java/com/cjr/WechatMessage/dao/CommentNoticeDao.xml
         update comment_notice set postId=#{postId}, commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentContent=#{commentContent},postType=#{postType},createTime=#{createTime} WHERE commentId=#{commentId}
-=======
-        update commentanduser set commentUserId=#{commentUserId},toCommentUserId=#{toCommentUserId},commentId=#{commentId},commentContent=#{commentContent},postType=#{postType} WHERE postId=#{postId}
->>>>>>> 724b281f9f1843a12fbbe64489410d8200a6e680:WechaMessage_Dao/target/classes/com/cjr/WechatMessage/dao/CommentAndUserDao.xml
     </update>
 
     <delete id="delete" parameterType="String">

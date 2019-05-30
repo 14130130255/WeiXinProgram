@@ -149,7 +149,7 @@ public class PostServiceImpl implements PostService {
             default:
                 break;
         }
-        if ( posts == null ||index * postNumOfPage >= posts.size()) {
+        if ( posts.size() == 0 ||index * postNumOfPage >= posts.size()) {
             return null;
         }
         List<Post> subposts= posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size()-1 : (index+1)*postNumOfPage);
@@ -187,7 +187,7 @@ public class PostServiceImpl implements PostService {
         }
         System.out.println(posts.size());
 
-        if (index * postNumOfPage >= posts.size()) {
+        if (posts.size() == 0 || index * postNumOfPage >= posts.size()) {
             return null;
         }
         return posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size() : (index+1)*postNumOfPage);

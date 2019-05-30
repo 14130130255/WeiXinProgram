@@ -1,0 +1,4 @@
+[ERROR] Error executing Maven.
+[ERROR] 1 problem was encountered while building the effective settings
+[FATAL] Non-parseable settings F:\apache-maven-3.6.1\bin\..\conf\settings.xml: expected START_TAG or END_TAG not TEXT (position: TEXT seen ...</mirrorOf>\ua0\ua0\ua0\ua0\ua0\ua0\ua0\ua0\ua0\ua0\n\ua0\ua0\ua0\ua0</mirror>\ua0\ua0\n  </... @165:5)  @ F:\apache-maven-3.6.1\bin\..\conf\settings.xml, line 165, column 5
+

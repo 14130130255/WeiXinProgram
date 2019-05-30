@@ -55,11 +55,7 @@
     </select>
 
     <select id="selectAll" parameterType="String" resultMap="newsPost">
-<<<<<<< HEAD
         select * from notice order by  postCreateTime DESC
-=======
-        select * from notice
->>>>>>> 724b281f9f1843a12fbbe64489410d8200a6e680
     </select>
 
 </mapper>
