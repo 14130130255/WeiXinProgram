@@ -10,9 +10,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("CommentService")
 public class CommentServiceImpl implements CommentService {
@@ -41,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
     private UserDao userDao;
 
     public Map<String,Object> comment(CommentAndUser commentAndUser, Integer postType, String postId) {
-        List<CommentAndUser> commentLists = null;
+        List<CommentAndUser> commentLists = new ArrayList<CommentAndUser>();
         Map<String,Object> map = new HashMap<String, Object>();
         Post post = null;
         int postCommentNum = 0;
@@ -79,15 +77,21 @@ public class CommentServiceImpl implements CommentService {
                     commentNoticeDao.insert(commentAndUser);
                     commentLists = commentNoticeDao.selectByPostId(postId);
                     break;
+                default:
+                    break;
             }
-            commentlistToMap(map, commentLists);
+            if (commentLists != null) {
+                Collections.sort(commentLists);
+                commentlistToMap(map, commentLists);
+            }else {
+                return map;
+            }
 
         }catch (Exception e){
             System.out.println("comment insert error");
             e.printStackTrace();
-            return null;
+            return map;
         }
-
         return map;
     }
 

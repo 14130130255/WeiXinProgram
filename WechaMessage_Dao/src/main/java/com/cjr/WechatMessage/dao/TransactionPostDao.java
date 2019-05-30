@@ -11,7 +11,7 @@ import java.util.List;
  * @Date:2019/4/27
  * @Time:14:16
  */
-@Repository("transactionPostDao")
+@Repository()
 public interface TransactionPostDao {
     /**
      * 插入招聘贴

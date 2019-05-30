@@ -23,4 +23,5 @@ public class Record {
     }
 
     private String imageUrl;
+
 }

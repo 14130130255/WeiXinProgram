@@ -12,6 +12,7 @@ import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,7 +118,10 @@ public class PostDetailServiceImpl implements PostDetailService {
                 //根据帖子id获取评论列表
                 commentLists = commentNoticeDao.selectByPostId(postId);
                 break;
+            default:
+                break;
         }
+        Collections.sort(commentLists);
         commentlistToMap(map, commentLists);
         recordlistToMap(map,records);
 

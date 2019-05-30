@@ -9,7 +9,7 @@ import java.util.Date;
  * @Time:13:31
  * 帖子评论实体类
  */
-public class CommentAndUser {
+public class CommentAndUser implements Comparable<CommentAndUser>{
 
     private String postId;
 
@@ -79,5 +79,9 @@ public class CommentAndUser {
 
     public void setPostType(int postType) {
         this.postType = postType;
+    }
+
+    public int compareTo(CommentAndUser o) {
+        return -createTime.compareTo(o.getCreateTime());
     }
 }

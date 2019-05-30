@@ -10,10 +10,14 @@ import com.cjr.WechatMessage.service.PostService;
 
 import com.cjr.WechatMessage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Created with qml
@@ -24,19 +28,19 @@ import java.util.List;
 @Service("postService")
 public class PostServiceImpl implements PostService {
 
-    @Autowired
+    @Resource(name = "blinddatePostDao")
     private BlinddatePostDao blinddatePostDao;
 
-    @Autowired
+    @Resource(name = "employmentPostDao")
     private EmploymentPostDao employmentPostDao;
 
-    @Autowired
+    @Resource(name = "transactionPostDao")
     private TransactionPostDao transactionPostDao;
 
     @Autowired
     private UserService userService;
 
-    @Autowired
+    @Resource(name = "newsPostDao")
     private NewsPostDao newsPostDao;
 
     //每页显示的帖子数
@@ -67,8 +71,12 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     public List<Post> selectLike(String openId, int index) {
-        List<Post> posts = null;
+        List<Post> posts = new ArrayList<Post>();
         User user = userService.getByOpenId(openId);
+        List<Post> posts1 = null;
+        List<Post> posts2 = null;
+        List<Post> posts3 = null;
+        List<Post> posts4 = null;
         int model = user.getChoiceMode();
         /**
          * 0 无感兴趣模块
@@ -79,82 +87,95 @@ public class PostServiceImpl implements PostService {
          */
         switch (model) {
             case 0:
-                posts = selectAll(1, index);
-                posts.addAll(selectAll(2, index));
-                posts.addAll(selectAll(3, index));
-                posts.addAll(selectAll(4, index));
+                posts1 = selectAll(1, index);
+                posts2 = selectAll(2, index);
+                posts3 = selectAll(3, index);
+                posts4 = selectAll(4, index);
                 break;
             case 1:
-                posts = selectAll(4, index);
+                posts4 = selectAll(4, index);
                 break;
             case 2:
-                posts = selectAll(3, index);
+                posts3 = selectAll(3, index);
                 break;
             case 3:
-                posts = selectAll(4, index);
-                posts.addAll(selectAll(3, index));
+                posts4 = selectAll(4, index);
+                posts3 = selectAll(3, index);
                 break;
             case 4:
-                posts = selectAll(2, index);
+                posts2 = selectAll(2, index);
                 break;
             case 5:
-                posts = selectAll(2, index);
-                posts.addAll(selectAll(4, index));
+                posts2 = selectAll(2, index);
+                posts4 = selectAll(4, index);
                 break;
             case 6:
-                posts = selectAll(2, index);
-                posts.addAll(selectAll(3, index));
+                posts2 = selectAll(2, index);
+                posts3 = selectAll(3, index);
                 break;
             case 7:
-                posts = selectAll(2, index);
-                posts.addAll(selectAll(3, index));
-                posts.addAll(selectAll(4, index));
+                posts2 = selectAll(2, index);
+                posts3 = selectAll(3, index);
+                posts4 = selectAll(4, index);
                 break;
             case 8:
-                posts = selectAll(1, index);
+                posts1 = selectAll(1, index);
                 break;
             case 9:
-                posts = selectAll(1, index);
-                posts.addAll(selectAll(4, index));
+                posts1 = selectAll(1, index);
+                posts4 = selectAll(4, index);
                 break;
             case 10:
-                posts = selectAll(1, index);
-                posts.addAll(selectAll(3, index));
+                posts1 = selectAll(1, index);
+                posts3 = selectAll(3, index);
                 break;
             case 11:
-                posts = selectAll(1, index);
-                posts.addAll(selectAll(3, index));
-                posts.addAll(selectAll(4, index));
+                posts1 = selectAll(1, index);
+                posts3 = selectAll(3, index);
+                posts4 = selectAll(4, index);
                 break;
             case 12:
-                posts = selectAll(1, index);
-                posts.addAll(selectAll(2, index));
+                posts1 = selectAll(1, index);
+                posts2 = selectAll(2, index);
                 break;
             case 13:
-                posts = selectAll(1, index);
-                posts.addAll(selectAll(2, index));
-                posts.addAll(selectAll(4, index));
+                posts1 = selectAll(1, index);
+                posts2 = selectAll(2, index);
+                posts4 = selectAll(4, index);
                 break;
             case 14:
-                posts = selectAll(1, index);
-                posts.addAll(selectAll(2, index));
-                posts.addAll(selectAll(3, index));
+                posts1 = selectAll(1, index);
+                posts2 = selectAll(2, index);
+                posts3 = selectAll(3, index);
                 break;
             case 15:
-                posts = selectAll(1, index);
-                posts.addAll(selectAll(2, index));
-                posts.addAll(selectAll(3, index));
-                posts.addAll(selectAll(4, index));
+                posts1 = selectAll(1, index);
+                posts2 = selectAll(2, index);
+                posts3 = selectAll(3, index);
+                posts4 = selectAll(4, index);
                 break;
             default:
                 break;
         }
-        if ( posts.size() == 0 ||index * postNumOfPage >= posts.size()) {
+        if (posts1 != null) {
+            System.out.println("非空");
+            posts.addAll(posts1);
+        }
+        if (posts2 != null) {
+            posts.addAll(posts2);
+        }
+        if (posts3 != null) {
+            posts.addAll(posts3);
+        }
+        if (posts4 != null) {
+            posts.addAll(posts4);
+        }
+
+        if ( posts == null ||index * postNumOfPage >= posts.size()) {
             return null;
         }
-        List<Post> subposts= posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size()-1 : (index+1)*postNumOfPage);
-        Collections.sort(subposts);
-        return subposts;
+        Collections.sort(posts);
+        return posts.subList(index * postNumOfPage, (index+1)*postNumOfPage>=posts.size() ? posts.size()-1 : (index+1)*postNumOfPage);
     }
 
     /**

@@ -45,9 +45,8 @@ public class CommentController {
         map = commentService.comment(commentAndUser,postType,postId);
         if(map!=null){
             map.put("comment","success");
-
         }else {
-            map.put("comment","failed");
+            return map;
         }
         return map;
 

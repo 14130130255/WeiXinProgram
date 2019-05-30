@@ -12,7 +12,7 @@ import java.util.List;
  * @Date:2019/4/27
  * @Time:14:17
  */
-@Repository("recordDao")
+@Repository()
 public interface RecordDao {
 
     public void insert(Record record);

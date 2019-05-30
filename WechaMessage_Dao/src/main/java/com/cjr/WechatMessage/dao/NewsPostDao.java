@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("newsPostDao")
+@Repository()
 public interface NewsPostDao {
     /**
      * 插入招聘贴

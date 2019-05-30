@@ -25,8 +25,8 @@
     </insert>
 
     <update id="update" parameterType="User">
-        update user set openid=#{openId},session_key=#{sessionKey},nick_name=#{nickName},avatar_url=#{avatarUrl},gender=#{gender},address=#{address},
-        create_time=#{createTime},skey=#{skey},school=#{school},college=#{college},degree=#{degree},student_number=#{studentNumber},choice_mode=#{choiceMode}
+        update user set session_key=#{sessionKey},nick_name=#{nickName},avatar_url=#{avatarUrl},gender=#{gender},address=#{address},
+        create_time=#{createTime},skey=#{skey},school=#{school},college=#{college},degree=#{degree},student_number=#{studentNumber},choice_mode=#{choiceMode} where openid=#{openId}
     </update>
 
     <delete id="delete" parameterType="String">

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @Date:2019/5/8
  * @Time:13:37
  */
-@Repository("postAndPictureDao")
+@Repository()
 public interface PostAndPictureDao {
     /**
      * 插入帖子相关的图片信息

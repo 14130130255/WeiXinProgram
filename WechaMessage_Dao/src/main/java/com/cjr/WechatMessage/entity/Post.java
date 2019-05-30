@@ -110,6 +110,6 @@ public class Post implements Comparable<Post>{
 
 
     public int compareTo(Post post) {
-        return postCreateTime.compareTo(post.getPostCreateTime());
+        return -postCreateTime.compareTo(post.getPostCreateTime());
     }
 }

@@ -108,7 +108,6 @@ public class UserController {
             user.setOpenId(openid);
             user.setSessionKey(sessionkey);
             user.setSkey(skey);
-
             userService.add(user);
         }else{
             System.out.println("用户openid已存在，不需要插入，更新数据");
@@ -121,6 +120,16 @@ public class UserController {
             user.setSkey(skey);
 
             userService.edit(user);
+            if (user.getStudentNumber() != null) {
+                map.put("studentNumber", true);
+            }else {
+                map.put("studentNumber", false);
+            }
+            if (user.getChoiceMode() != null) {
+                map.put("ChoiceMode", true);
+            }else {
+                map.put("ChoiceMode", false);
+            }
         }
 
         map.put("result",0);

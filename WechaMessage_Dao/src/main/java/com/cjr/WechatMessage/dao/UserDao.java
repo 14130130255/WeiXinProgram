@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 /**
  * User的Dao接口
  */
-@Repository("userDao")
+@Repository()
 public interface UserDao {
     /**
      * 往数据库里面添加用户

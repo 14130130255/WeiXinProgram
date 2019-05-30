@@ -12,7 +12,7 @@ import java.util.List;
  * @Time:14:17
  * 招聘贴
  */
-@Repository("employmentPostDao")
+@Repository()
 public interface EmploymentPostDao {
 
     /**

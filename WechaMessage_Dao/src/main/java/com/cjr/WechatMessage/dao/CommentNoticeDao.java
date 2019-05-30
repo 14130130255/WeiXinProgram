@@ -11,7 +11,7 @@ import java.util.List;
  * @Date:2019/4/27
  * @Time:16:00
  */
-@Repository("commentNoticeDao")
+@Repository()
 public interface CommentNoticeDao {
 
     /**
