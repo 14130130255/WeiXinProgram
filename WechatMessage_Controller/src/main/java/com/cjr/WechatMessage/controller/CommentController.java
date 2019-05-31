@@ -24,7 +24,7 @@ public class CommentController {
     public Map<String,Object> comment(Model model,
                                       @RequestParam(value = "postid" ,required = true)String postId,
                                       @RequestParam(value = "posttype",required = true)Integer postType,
-                                      @RequestParam(value = "openid",required = true)String CommentUserId,
+                                      @RequestParam(value = "skey",required = true)String CommentUserId,
                                       @RequestParam(value = "touserid",required = false)String toCommentUserId,
                                       @RequestParam(value = "content",required = true)String CommentContent){
         System.out.println("postid:"+postId);

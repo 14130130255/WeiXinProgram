@@ -81,7 +81,7 @@ public class ShowController {
      * index为页面展示的第几页
      */
     public Map<String,Object> doShowLikePost(Model model,
-                                      @RequestParam(value="openId",required = false)String openId,
+                                      @RequestParam(value="skey",required = false)String openId,
                                       @RequestParam(value = "index",required = false)int index) {
         System.out.println(index);
         List<Post> posts = postService.selectLike(openId, index);

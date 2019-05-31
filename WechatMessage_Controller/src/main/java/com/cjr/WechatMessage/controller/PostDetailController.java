@@ -34,7 +34,7 @@ public class PostDetailController {
     public Map<String,Object> doGetPostDetail(Model model,
                                         @RequestParam(value="postid",required = true)String postId,
                                         @RequestParam(value = "posttype",required = true)int postType,
-                                        @RequestParam(value= "openid",required = false)String openid){
+                                        @RequestParam(value= "skey",required = false)String openid){
 
         System.out.println("postId:"+postId+" postType:"+postType);
         postDetailService.addLookPeopleNum(postId,postType,openid);
@@ -66,6 +66,8 @@ public class PostDetailController {
                 break;
             case 3:
                 noticePostService.changeLikeNum(postId,isClicked);
+                break;
+            default:
                 break;
         }
 

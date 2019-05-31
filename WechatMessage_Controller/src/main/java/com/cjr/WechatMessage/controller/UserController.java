@@ -133,7 +133,7 @@ public class UserController {
         }
 
         map.put("result",0);
-        map.put("openid",openid);
+        map.put("skey",openid);
 
         return map;
     }
@@ -150,7 +150,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/authentication")
     public Map<String,String> doAuthentication(Model model,
-                                       @RequestParam(value="openid",required = false)String openid,
+                                       @RequestParam(value="skey",required = false)String openid,
                                        @RequestParam(value="school",required = false)String school,
                                        @RequestParam(value="collage",required = false)String collage,
                                        @RequestParam(value="degree",required = false)String degree,
@@ -191,7 +191,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/follow")
     public Map<String,String> doFollow(Model model,
-                                       @RequestParam(value="openid",required = false)String openid,
+                                       @RequestParam(value="skey",required = false)String openid,
                                        @RequestParam(value="choiceMode",required = false)String choiceMode)
 
     {

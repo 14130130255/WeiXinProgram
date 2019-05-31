@@ -37,7 +37,7 @@ public class AddPostController {
     @ResponseBody
     @RequestMapping("/addpost")
     public Map<String, String> doAddPost(Model model,
-                                         @RequestParam(value = "openid", required = true) String userId,
+                                         @RequestParam(value = "skey", required = true) String userId,
                                          @RequestParam(value = "mode", required = true) String postType,
                                          @RequestParam(value = "content", required = true) String postContent,
                                          @RequestParam(value = "is_anonymous", required = false) String isAnonymous,
